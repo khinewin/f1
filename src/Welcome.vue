@@ -1,8 +1,30 @@
 <template>
-    <div>
-        <ul>
-            <li v-for="p in products">{{p.item_name}}</li>
-        </ul>
+    <div class="container">
+        <h2>Products</h2>
+        <div class="card shadow">
+            <div class="card-body">
+                <table  class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>Item Name</td>
+                            <td>Cost</td>
+                            <td>Price</td>
+                            <td>Quantity</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="p in products" :key="p.id">
+                            <td>{{p.id}}</td>
+                            <td>{{p.item_name}}</td>
+                            <td>{{p.cost}}</td>
+                            <td>{{p.price}}</td>
+                            <td>{{p.qty}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </template>
 <script>
