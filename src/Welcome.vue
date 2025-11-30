@@ -1,6 +1,9 @@
 <template>
     <div class="container">
-        <h2>Products</h2>
+        <div class="row pt-2">
+            <div class="col-10"><div class="h2">Products</div></div>
+            <div class="col-2"><router-link :to="{name: 'createProduct'}" class="btn btn-link pt-2">Create new</router-link></div>
+        </div>
         <div class="card shadow">
             <div class="card-body">
                 
