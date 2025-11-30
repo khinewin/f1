@@ -3,9 +3,10 @@
         <h2>Products</h2>
         <div class="card shadow">
             <div class="card-body">
+                
                 <table  class="table table-hover table-bordered">
                     <thead>
-                        <tr>
+                        <tr class="fw-bold text-center table-secondary">
                             <td>ID</td>
                             <td>Item Name</td>
                             <td>Cost</td>
@@ -15,14 +16,19 @@
                     </thead>
                     <tbody>
                         <tr v-for="p in products" :key="p.id">
-                            <td>{{p.id}}</td>
+                            <td class="text-center">{{p.id}}</td>
                             <td>{{p.item_name}}</td>
-                            <td>{{p.cost}}</td>
-                            <td>{{p.price}}</td>
-                            <td>{{p.qty}}</td>
+                            <td class="text-end">{{p.cost}}</td>
+                            <td class="text-end">{{p.price}}</td>
+                            <td class="text-center">{{p.qty}}</td>
                         </tr>
                     </tbody>
                 </table>
+                <div v-if="isLoading" class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -35,18 +41,22 @@
         },
         data(){
             return{
-                products : []
+                products : [],
+                isLoading: false,
             }
         },
         methods:{
             fetchProducts(){
+                this.isLoading=true;
                 axios.get("http://localhost:8000/api/products")
                 .then((res)=>{
                  ///   console.log(res)
                     const data=res.data;
                     this.products=data;
+                    this.isLoading=false;
                 })
                 .catch((err)=>{
+                    this.isLoading=false;
                     console.log("error" + err)
                 });
             }
