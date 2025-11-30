@@ -29,6 +29,9 @@
                     <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
+                <div v-if="!isLoading && errorMsg" class="text-center text-danger">
+                    {{errorMsg}}
+                </div>
             </div>
         </div>
     </div>
@@ -43,6 +46,7 @@
             return{
                 products : [],
                 isLoading: false,
+                errorMsg:null,
             }
         },
         methods:{
@@ -57,7 +61,8 @@
                 })
                 .catch((err)=>{
                     this.isLoading=false;
-                    console.log("error" + err)
+                    this.errorMsg=err;
+                    //console.log("error" + err)
                 });
             }
         }
