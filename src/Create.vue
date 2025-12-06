@@ -8,22 +8,22 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-sm-4">
-                <form action="">
+                <form @submit.prevent="savePost">
                     <div class="form-group mb-3">
                         <label for="item_name" class="form-label">Item name</label>
-                        <input type="text" id="item_name" class="form-control">
+                        <input v-model="item_name" type="text" id="item_name" class="form-control">
                     </div>
                     <div class="form-group mb-3">
                         <label for="cost" class="form-label">Cost</label>
-                        <input type="number" id="cost" class="form-control">
+                        <input v-model="cost" type="number" id="cost" class="form-control">
                     </div>
                     <div class="form-group mb-3">
                         <label for="price" class="form-label">Price</label>
-                        <input type="number" id="price" class="form-control">
+                        <input v-model="price" type="number" id="price" class="form-control">
                     </div>
                     <div class="form-group mb-3">
                         <label for="qty" class="form-label">Quantity</label>
-                        <input type="number" id="qty" class="form-control">
+                        <input v-model="qty" type="number" id="qty" class="form-control">
                     </div>
                     <div class="form-group d-grid">
                         <button type="submit" class="btn btn-primary">Save</button>
@@ -35,6 +35,24 @@
 </template>
 <script>
     export default {
-        
+        methods:{
+            savePost(){
+                const item={
+                    item_name: this.item_name,
+                    cost: this.cost,
+                    price:this.price,
+                    qty: this.qty,
+                }
+                console.log(item)
+            }
+        },
+        data(){
+            return{
+                item_name: "",
+                cost: 0,
+                price: 0,
+                qty: 0
+            }
+        }
     }
 </script>
