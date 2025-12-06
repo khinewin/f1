@@ -8,6 +8,9 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-sm-4">
+
+                <div v-if="msg" class="alert alert-success">{{msg}}</div>
+
                 <form @submit.prevent="savePost">
                     <div class="form-group mb-3">
                         <label for="item_name" class="form-label">Item name</label>
@@ -34,6 +37,7 @@
     </div>
 </template>
 <script>
+    import axios from "axios"
     export default {
         methods:{
             savePost(){
@@ -43,7 +47,19 @@
                     price:this.price,
                     qty: this.qty,
                 }
-                console.log(item)
+               axios.post("http://localhost:8000/api/products", item)
+               .then((res)=>{
+                let msg=res.data.msg;
+                this.msg=msg;
+                setTimeout(()=>{
+                    this.msg=null;
+                }, 3000)
+                //console.log(res)
+               })
+               .catch((err)=>{
+                console.log(err)
+               }); 
+                
             }
         },
         data(){
@@ -51,7 +67,8 @@
                 item_name: "",
                 cost: 0,
                 price: 0,
-                qty: 0
+                qty: 0,
+                msg:null,
             }
         }
     }
