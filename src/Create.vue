@@ -61,6 +61,12 @@
                .then((res)=>{
                 this.isSaving=false;
                 let msg=res.data.msg;
+
+                this.item_name="";
+                this.cost="";
+                this.price="";
+                this.qty="";
+
                 this.msg=msg;
                 setTimeout(()=>{
                     this.msg=null;
