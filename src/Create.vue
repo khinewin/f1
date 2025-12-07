@@ -29,7 +29,12 @@
                         <input v-model="qty" type="number" id="qty" class="form-control">
                     </div>
                     <div class="form-group d-grid">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary" :disabled="isSaving">
+                            <div v-if="!isSaving">Save</div>
+                            <div v-if="isSaving" class="spinner-border text-white" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -41,6 +46,7 @@
     export default {
         methods:{
             savePost(){
+                this.isSaving=true;
                 const item={
                     item_name: this.item_name,
                     cost: this.cost,
@@ -49,14 +55,15 @@
                 }
                axios.post("http://localhost:8000/api/products", item)
                .then((res)=>{
+                this.isSaving=false;
                 let msg=res.data.msg;
                 this.msg=msg;
                 setTimeout(()=>{
                     this.msg=null;
                 }, 3000)
                 //console.log(res)
-               })
-               .catch((err)=>{
+               }).catch((err)=>{
+                this.isSaving=false;
                 console.log(err)
                }); 
                 
@@ -69,6 +76,7 @@
                 price: 0,
                 qty: 0,
                 msg:null,
+                isSaving: false,
             }
         }
     }
