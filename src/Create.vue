@@ -15,18 +15,22 @@
                     <div class="form-group mb-3">
                         <label for="item_name" class="form-label">Item name</label>
                         <input v-model="item_name" type="text" id="item_name" class="form-control">
+                        <div v-if="error.item_name" class="text-danger">{{error.item_name}}</div>
                     </div>
                     <div class="form-group mb-3">
                         <label for="cost" class="form-label">Cost</label>
                         <input v-model="cost" type="number" id="cost" class="form-control">
+                        <div v-if="error.cost" class="text-danger">{{error.cost}}</div>
                     </div>
                     <div class="form-group mb-3">
                         <label for="price" class="form-label">Price</label>
                         <input v-model="price" type="number" id="price" class="form-control">
+                        <div v-if="error.price" class="text-danger">{{error.price}}</div>
                     </div>
                     <div class="form-group mb-3">
                         <label for="qty" class="form-label">Quantity</label>
                         <input v-model="qty" type="number" id="qty" class="form-control">
+                        <div v-if="error.qty" class="text-danger">{{error.qty}}</div>
                     </div>
                     <div class="form-group d-grid">
                         <button type="submit" class="btn btn-primary" :disabled="isSaving">
@@ -64,7 +68,11 @@
                 //console.log(res)
                }).catch((err)=>{
                 this.isSaving=false;
-                console.log(err)
+                console.log(err.response.data.errors)
+                this.error.item_name=err.response.data?.errors?.item_name ? err.response.data?.errors?.item_name[0] :  null;
+                this.error.cost=err.response.data?.errors?.cost ? err.response.data?.errors?.cost[0] : null;
+                this.error.price=err.response.data?.errors?.price ? err.response.data?.errors?.price[0] : null;
+                this.error.qty=err.response.data?.errors?.qty ? err.response.data?.errors?.qty[0]  : null;
                }); 
                 
             }
@@ -72,11 +80,17 @@
         data(){
             return{
                 item_name: "",
-                cost: 0,
-                price: 0,
-                qty: 0,
+                cost: "",
+                price: "",
+                qty: "",
                 msg:null,
                 isSaving: false,
+                error: {
+                    item_name: null,
+                    cost: null,
+                    price:null,
+                    qty: null,
+                }
             }
         }
     }
