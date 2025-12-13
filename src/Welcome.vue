@@ -18,8 +18,8 @@
                         <tr v-for="p in products" :key="p.id">
                             <td class="text-center">{{p.id}}</td>
                             <td>{{p.item_name}}</td>
-                            <td class="text-end">{{p.cost}}</td>
-                            <td class="text-end">{{p.price}}</td>
+                            <td class="text-end">{{formatAmount(p.cost)}}</td>
+                            <td class="text-end">{{formatAmount(p.price)}}</td>
                             <td class="text-center">{{p.qty}}</td>
                         </tr>
                     </tbody>
@@ -50,6 +50,12 @@
             }
         },
         methods:{
+            formatAmount(amount=0){
+                return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'MMK'
+                    }).format(amount);
+            },
             fetchProducts(){
                 this.isLoading=true;
                 axios.get("http://localhost:8000/api/products")
