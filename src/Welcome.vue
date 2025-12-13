@@ -12,6 +12,7 @@
                             <td>Cost</td>
                             <td>Price</td>
                             <td>Quantity</td>
+                            <td>Actions</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -21,6 +22,7 @@
                             <td class="text-end">{{formatAmount(p.cost)}}</td>
                             <td class="text-end">{{formatAmount(p.price)}}</td>
                             <td class="text-center">{{p.qty}}</td>
+                            <td><button data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-sm btn-outline-danger">Delete</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -34,6 +36,25 @@
                 </div>
             </div>
         </div>
+        <!--Delete Modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure want to delete this item ? it cannot be recover.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+        <!--End Delete Modal-->
     </div>
 </template>
 <script>
