@@ -1,11 +1,6 @@
 <template>
     <div class="container">
-        <div class="row pt-2">
-            <div class="col-10 h2">New item</div>
-            <div class="col-2">
-                <router-link :to="{name: 'welcome'}">Home</router-link>
-            </div>
-        </div>
+       
         <div class="row justify-content-center">
             <div class="col-sm-4">
 
