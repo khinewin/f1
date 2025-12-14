@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-       
+       <div v-if="msg" class="alert alert-success">{{msg}}</div>
         <div class="card shadow">
             <div class="card-body">
                 
@@ -22,7 +22,7 @@
                             <td class="text-end">{{formatAmount(p.cost)}}</td>
                             <td class="text-end">{{formatAmount(p.price)}}</td>
                             <td class="text-center">{{p.qty}}</td>
-                            <td><button data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-sm btn-outline-danger">Delete</button></td>
+                            <td><button @click="storeId(p.id)" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-sm btn-outline-danger">Delete</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -49,7 +49,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger">Confirm</button>
+        <button type="button" class="btn btn-danger" @click="deleteProduct" data-bs-dismiss="modal">Confirm</button>
       </div>
     </div>
   </div>
@@ -65,12 +65,30 @@
         },
         data(){
             return{
+                id:null,
+                msg:null,
                 products : [],
                 isLoading: false,
                 errorMsg:null,
             }
         },
         methods:{
+            deleteProduct(){
+                axios.delete(`http://localhost:8000/api/products/id/${this.id}`)
+                .then((res)=>{
+                    this.msg=res.data.msg;
+                    this.fetchProducts();
+                    setTimeout(()=>{
+                        this.msg=null;
+                    }, 3000);
+                })
+                .catch((err)=>{
+                    console.log(err);
+                });
+            },
+            storeId(id){
+                this.id=id;
+            },
             formatAmount(amount=0){
                 return new Intl.NumberFormat('en-US', {
                     style: 'currency',
