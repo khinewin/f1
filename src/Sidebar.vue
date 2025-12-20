@@ -8,7 +8,7 @@
   <div class="offcanvas-body">
         <ul class="list-group">
             <li class="list-group-item list-group-item-action" data-bs-dismiss="offcanvas">
-                <router-link :to="{name: 'welcome'}" class="btn d-block text-start">Home</router-link>
+                <router-link :to="{name: 'welcome'}" class="btn d-block text-start"><i class="fa-solid fa-house"></i> Home</router-link>
             </li>
              <li class="list-group-item list-group-item-action" data-bs-dismiss="offcanvas">
                 <router-link :to="{name: 'createProduct'}" class="btn d-block text-start">New Item</router-link>

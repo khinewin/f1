@@ -2,8 +2,7 @@
     <div class="container">
        <div v-if="msg" class="alert alert-success">{{msg}}</div>
         <div class="card shadow">
-            <div class="card-body">
-                
+            <div class="card-body">                
                 <table  class="table table-hover table-bordered">
                     <thead>
                         <tr class="fw-bold text-center table-secondary">
@@ -22,7 +21,10 @@
                             <td class="text-end">{{formatAmount(p.cost)}}</td>
                             <td class="text-end">{{formatAmount(p.price)}}</td>
                             <td class="text-center">{{p.qty}}</td>
-                            <td><button @click="storeId(p.id)" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-sm btn-outline-danger">Delete</button></td>
+                            <td class="text-center">
+                                <router-link :to="{name : 'edit', params: {id: p.id}}" class="btn btn-outline-info me-3"><i class="fa-solid fa-pen-to-square"></i></router-link>
+                                <button @click="storeId(p.id)" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
