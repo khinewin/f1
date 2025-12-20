@@ -63,20 +63,16 @@
             savePost(){
                 this.isSaving=true;
                 const item={
+                    id:this.product_id,
                     item_name: this.item_name,
                     cost: this.cost,
                     price:this.price,
                     qty: this.qty,
                 }
-               axios.post("http://localhost:8000/api/products", item)
+               axios.put("http://localhost:8000/api/products", item)
                .then((res)=>{
                 this.isSaving=false;
-                let msg=res.data.msg;
-
-                this.item_name="";
-                this.cost="";
-                this.price="";
-                this.qty="";
+                let msg=res.data.msg;           
 
                 this.msg=msg;
                 setTimeout(()=>{
