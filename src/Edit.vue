@@ -27,9 +27,10 @@
                         <input v-model="qty" type="number" id="qty" class="form-control">
                         <div v-if="error.qty" class="text-danger">{{error.qty}}</div>
                     </div>
-                    <div class="form-group d-grid">
+                    <div class="form-group ">
+                        <router-link to="/" class="btn btn-light me-3">Back</router-link>
                         <button type="submit" class="btn btn-primary" :disabled="isSaving">
-                            <div v-if="!isSaving">Save</div>
+                            <div v-if="!isSaving">Update</div>
                             <div v-if="isSaving" class="spinner-border text-white" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
@@ -43,7 +44,22 @@
 <script>
     import axios from "axios"
     export default {
+        mounted(){
+            this.fetchPost();
+        },
         methods:{
+            fetchPost(){
+                axios.get(`http://localhost:8000/api/products/id/${this.product_id}`)
+                .then((res)=>{
+                    this.item_name=res.data.item_name;
+                    this.cost=res.data.cost;
+                    this.price=res.data.price;
+                    this.qty=res.data.qty;
+                })
+                .catch((err)=>{
+                    console.log(err)
+                });
+            },
             savePost(){
                 this.isSaving=true;
                 const item={
@@ -80,6 +96,7 @@
         },
         data(){
             return{
+                product_id: this.$route.params.id,
                 item_name: "",
                 cost: "",
                 price: "",
